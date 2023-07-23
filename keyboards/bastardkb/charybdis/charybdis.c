@@ -53,7 +53,7 @@
 
 // Fixed DPI for carret.
 #    ifndef CHARYBDIS_CARRET_BUFFER
-#        define CHARYBDIS_CARRET_BUFFER 40
+#        define CHARYBDIS_CARRET_BUFFER 60 // the higher the value - the slower caret move
 #    endif  // CHARYBDIS_CARRET_BUFFER
 
 #    ifndef CHARYBDIS_POINTER_ACCELERATION_FACTOR
@@ -231,7 +231,7 @@ int min(int num1, int num2) { return (num1 > num2) ? num2 : num1; }
 
 void tap_tb(uint8_t keycode0, uint8_t keycode1, uint8_t keycode2, uint8_t keycode3, int16_t *move_buffer_x, int16_t *move_buffer_y) {
     uint16_t local_carret_dpi = g_charybdis_config.is_integ_enabled? CHARYBDIS_CARRET_BUFFER * 20 : CHARYBDIS_CARRET_BUFFER;
-    local_carret_dpi = g_charybdis_config.is_sniping_enabled? local_carret_dpi : local_carret_dpi / 4;
+    local_carret_dpi = g_charybdis_config.is_sniping_enabled? local_carret_dpi : local_carret_dpi / 2;
     if (abs(*move_buffer_x) + abs(*move_buffer_y) < local_carret_dpi) { return; }
     if ((abs(*move_buffer_x) > abs(*move_buffer_y)) && (*move_buffer_x > 0)) {
         for (int8_t i = 0; i <= (abs(*move_buffer_x) + abs(*move_buffer_y)) / local_carret_dpi; i++) {

@@ -41,13 +41,13 @@
 #    define RGB_MATRIX_KEYPRESSES
 
 // Startup values.
-#    define RGB_MATRIX_DEFAULT_HUE 0
-#    define RGB_MATRIX_DEFAULT_SAT 255
-#    define RGB_MATRIX_DEFAULT_VAL 64
+#    define RGB_MATRIX_DEFAULT_HUE 170
+#    define RGB_MATRIX_DEFAULT_SAT 100
+#    define RGB_MATRIX_DEFAULT_VAL 100
 
-// Rainbow swirl as startup mode.
-#    define ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
-#    define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_LEFT_RIGHT
+// Rainbow swirl as startup mode. - turn it off - no color cycle
+//#    define ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
+//#    define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_LEFT_RIGHT
 
 // Slow swirl at startup.
 #    define RGB_MATRIX_DEFAULT_SPD 32
@@ -55,7 +55,7 @@
 #    ifndef __arm__
 // Disable control of RGB matrix by keycodes (must use firmware implementation
 // to control the feature).
-#        define RGB_MATRIX_DISABLE_KEYCODES
+//#        define RGB_MATRIX_DISABLE_KEYCODES
 #    else // __arm__
 // Enable all animations on ARM boards since they have plenty of memory
 // available for it.
