@@ -23,20 +23,23 @@ enum charybdis_keymap_layers {
 
 enum tap_dance_keymap {
     TD_GRV_TILD,
+    TD_SLSHS,
 };
 
 // Tap Dance definitions
 tap_dance_action_t tap_dance_actions[] = {
     // Tap once for `, twice for ~
     [TD_GRV_TILD] = ACTION_TAP_DANCE_DOUBLE(KC_GRV, KC_TILD),
+    [TD_SLSHS] = ACTION_TAP_DANCE_DOUBLE(KC_SLASH, KC_BACKSLASH)
 };
 
 #define LOWER MO(LAYER_LOWER)
 #define RAISE MO(LAYER_RAISE)
-#define POINT MO(LAYER_POINTER)
 /*#define PT_Z LT(LAYER_POINTER, KC_Z)*/
 /*#define PT_SLSH LT(LAYER_POINTER, KC_SLSH)*/
+#define POINT MO(LAYER_POINTER)
 #define GRV_TLD TD(TD_GRV_TILD)
+#define SLSHS TD(TD_SLSHS)
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -48,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
          RAISE,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,       KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-         LOWER,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,       KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_RBRC,
+         LOWER,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,       KC_N,    KC_M, KC_COMM,  KC_DOT,   SLSHS, KC_RBRC,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
                                   KC_LALT, KC_LGUI, KC_LSFT,    KC_RSFT,  KC_SPC,
                                            KC_LCTL,   POINT,     KC_ENT

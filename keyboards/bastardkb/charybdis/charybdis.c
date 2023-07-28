@@ -53,7 +53,7 @@
 
 // Fixed DPI for carret.
 #    ifndef CHARYBDIS_CARRET_BUFFER
-#        define CHARYBDIS_CARRET_BUFFER 60 // the higher the value - the slower caret move
+#        define CHARYBDIS_CARRET_BUFFER 100 // the higher the value - the slower caret move
 #    endif  // CHARYBDIS_CARRET_BUFFER
 
 #    ifndef CHARYBDIS_POINTER_ACCELERATION_FACTOR
