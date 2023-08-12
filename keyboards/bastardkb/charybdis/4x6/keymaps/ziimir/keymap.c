@@ -22,15 +22,52 @@ enum charybdis_keymap_layers {
 };
 
 enum tap_dance_keymap {
-    TD_GRV_TILD,
     TD_SLSHS,
+    TD_QOUT_KC_GRV,
+    TD_LBRC_KC_MINS,
+    TD_RBRC_KC_EQL,
+    TD_DOT_COMM,
 };
 
 // Tap Dance definitions
 tap_dance_action_t tap_dance_actions[] = {
-    // Tap once for `, twice for ~
-    [TD_GRV_TILD] = ACTION_TAP_DANCE_DOUBLE(KC_GRV, KC_TILD),
-    [TD_SLSHS] = ACTION_TAP_DANCE_DOUBLE(KC_SLASH, KC_BACKSLASH)
+    // Tap once for /?, twice for \|
+    [TD_SLSHS] = ACTION_TAP_DANCE_DOUBLE(KC_SLASH, KC_BACKSLASH),
+    // Tap once for '", twice for `~
+    [TD_QOUT_KC_GRV] = ACTION_TAP_DANCE_DOUBLE(KC_QUOT, KC_GRV),
+    // Tap once for [{, twice for -_
+    [TD_LBRC_KC_MINS] = ACTION_TAP_DANCE_DOUBLE(KC_LBRC, KC_MINS),
+    // Tap once for }], twice for =+
+    [TD_RBRC_KC_EQL] = ACTION_TAP_DANCE_DOUBLE(KC_RBRC, KC_EQL),
+    // Tap once for .>, twice for ,<
+    [TD_DOT_COMM] = ACTION_TAP_DANCE_DOUBLE(KC_DOT, KC_COMM),
+};
+
+enum custom_keycodes {
+    SCRN_SHT = SAFE_RANGE,
+    CAST_SHT,
+};
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case SCRN_SHT:
+            if (record->event.pressed) {
+                // when keycode SCRN_SHT is pressed
+                SEND_STRING(SS_LGUI(SS_LSFT("4")));
+            } else {
+                // when keycode SCRN_SHT is released
+            }
+            break;
+        case CAST_SHT:
+            if (record->event.pressed) {
+                // when keycode SCRN_SHT is pressed
+                SEND_STRING(SS_LGUI(SS_LSFT("5")));
+            } else {
+                // when keycode SCRN_SHT is released
+            }
+            break;
+    }
+    return true;
 };
 
 #define LOWER MO(LAYER_LOWER)
@@ -38,8 +75,11 @@ tap_dance_action_t tap_dance_actions[] = {
 /*#define PT_Z LT(LAYER_POINTER, KC_Z)*/
 /*#define PT_SLSH LT(LAYER_POINTER, KC_SLSH)*/
 #define POINT MO(LAYER_POINTER)
-#define GRV_TLD TD(TD_GRV_TILD)
 #define SLSHS TD(TD_SLSHS)
+#define QOU_GRV TD(TD_QOUT_KC_GRV)
+#define LBR_MIN TD(TD_LBRC_KC_MINS)
+#define RBR_EQL TD(TD_RBRC_KC_EQL)
+#define DOT_COM TD(TD_DOT_COMM)
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -47,11 +87,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ╭──────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────╮
         KC_ESC,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,       KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_BSPC,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-        KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,       KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_LBRC,
+        KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,       KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, LBR_MIN,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-         RAISE,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,       KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,
+         RAISE,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,       KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, QOU_GRV,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-         LOWER,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,       KC_N,    KC_M, KC_COMM,  KC_DOT,   SLSHS, KC_RBRC,
+         LOWER,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,       KC_N,    KC_M, KC_COMM,  KC_DOT,   SLSHS, RBR_EQL,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
                                   KC_LALT, KC_LGUI, KC_LSFT,    KC_RSFT,  KC_SPC,
                                            KC_LCTL,   POINT,     KC_ENT
@@ -60,16 +100,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [LAYER_LOWER] = LAYOUT(
   // ╭──────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────╮
-       GRV_TLD, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,    KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL,
+        KC_ESC, XXXXXXX, XXXXXXX, XXXXXXX,SCRN_SHT,CAST_SHT,   XXXXXXX, KC_PSLS, KC_PAST, KC_PMNS, XXXXXXX,   KC_DEL,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_MINS, KC_UNDS,
+       _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    KC_KP_7, KC_KP_8, KC_KP_9, KC_PPLS, XXXXXXX, XXXXXXX,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  KC_PPLS, KC_EQL,
+       _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    KC_KP_4, KC_KP_5, KC_KP_6, XXXXXXX, XXXXXXX, XXXXXXX,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, KC_PIPE, KC_SLSH, KC_BSLS,
+       _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    KC_KP_1, KC_KP_2, KC_KP_3, DOT_COM, XXXXXXX, XXXXXXX,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
-                                  _______, _______, _______,    _______, XXXXXXX,
-                                           _______, _______,    XXXXXXX
+                                  _______, _______, _______,    KC_KP_0, _______,
+                                           _______, _______,    _______
   //                            ╰───────────────────────────╯ ╰──────────────────╯
   ),
 
@@ -124,4 +164,3 @@ void shutdown_user(void) {
     rgb_matrix_update_pwm_buffers();
 #endif // RGB_MATRIX_ENABLE
 }
-
