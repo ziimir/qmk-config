@@ -21,3 +21,5 @@
 
 /* Charybdis-specific features. */
 #define CHARYBDIS_CARRET_REVERSE_Y
+
+#define CHARYBDIS_DRAGSCROLL_REVERSE_Y
