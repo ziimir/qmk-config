@@ -36,7 +36,7 @@ void triple_grave(tap_dance_state_t *state, void *user_data) {
             SEND_STRING("```");
             break;
         case 3:
-            SEND_STRING("```"SS_TAP(X_ENTER)"```"SS_TAP(X_UP)SS_TAP(X_ENTER));
+            SEND_STRING("```\n\n```"SS_TAP(X_UP));
     }
 
     reset_tap_dance(state);
@@ -81,7 +81,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
         case SRH_SPT:
             if (record->event.pressed) {
-                SEND_STRING(SS_LCTL(SS_TAP(X_SPACE)));
+                // CMD + ALT + N - open small arc browser
+                if (get_mods() & MOD_MASK_GUI) {
+                    // No need to register GUI (CMD) because it's already active
+                    SEND_STRING(SS_LALT("n"));
+                } else {
+                    SEND_STRING(SS_LCTL(SS_TAP(X_SPACE)));
+                }
             }
             break;
     }
