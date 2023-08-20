@@ -96,8 +96,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 #define LOWER MO(LAYER_LOWER)
 #define RAISE MO(LAYER_RAISE)
-#define POINT MO(LAYER_POINTER)
-/*#define PT_SCLN LT(LAYER_POINTER, KC_SCLN)*/
+#define PT_Z LT(LAYER_POINTER, KC_Z)
+#define PT_SLSH LT(LAYER_POINTER, KC_SLSH)
 
 #define A_LSFT MT(MOD_LSFT, KC_A)
 #define S_LCTL MT(MOD_LCTL, KC_S)
@@ -123,10 +123,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
        KC_BSLS,  A_LSFT,  S_LCTL,  D_LALT,  F_LGUI,    KC_G,       KC_H,  J_RGUI,  K_RALT,  L_RCTL, SCL_SFT, KC_QUOT,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       TRI_GRV,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,       KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_RBRC,
+       TRI_GRV,    PT_Z,    KC_X,    KC_C,    KC_V,    KC_B,       KC_N,    KC_M, KC_COMM,  KC_DOT, PT_SLSH, KC_RBRC,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
-                                    POINT, SRH_SPT,  KC_ENT,    KC_BSPC,  KC_SPC,
-                                           CHG_LNG,   LOWER,      RAISE
+                                    RAISE, SRH_SPT,  KC_ENT,     KC_DEL,  KC_SPC,
+                                           CHG_LNG,   LOWER,    KC_BSPC
   //                            ╰───────────────────────────╯ ╰──────────────────╯
   ),
 
@@ -138,10 +138,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    KC_PAST, KC_KP_4, KC_KP_5, KC_KP_6, KC_PPLS, XXXXXXX,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    KC_KP_0, KC_KP_1, KC_KP_2, KC_KP_3, DOT_COM, XXXXXXX,
+       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    KC_PEQL, KC_KP_1, KC_KP_2, KC_KP_3, DOT_COM, XXXXXXX,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
-                                  XXXXXXX, XXXXXXX, _______,    _______, _______,
-                                           XXXXXXX, XXXXXXX,    KC_PEQL
+                                  XXXXXXX, XXXXXXX, _______,    XXXXXXX, _______,
+                                           XXXXXXX, _______,    KC_KP_0
   //                            ╰───────────────────────────╯ ╰──────────────────╯
   ),
 
@@ -155,8 +155,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, KC_MUTE, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
-                                  XXXXXXX, XXXXXXX, XXXXXXX,     KC_DEL, XXXXXXX,
-                                           XXXXXXX, XXXXXXX,    XXXXXXX
+                                  _______, XXXXXXX, XXXXXXX,     KC_DEL, XXXXXXX,
+                                           XXXXXXX, XXXXXXX,     XXXXXXX
   //                            ╰───────────────────────────╯ ╰──────────────────╯
   ),
 
@@ -166,12 +166,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    DPI_MOD, S_D_MOD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       XXXXXXX, KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, XXXXXXX,    XXXXXXX, KC_BTN1, KC_BTN2, CARRETM, DRGSCRL, XXXXXXX,
+       XXXXXXX, KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, XXXXXXX,    XXXXXXX, KC_BTN1, KC_BTN2, XXXXXXX, XXXXXXX, XXXXXXX,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+       XXXXXXX, _______, DRGSCRL, SNIPING, CARRETM, XXXXXXX,    XXXXXXX, CARRETM, SNIPING, DRGSCRL, _______, XXXXXXX,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
-                                  _______, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX,
-                                           SNIPING, XXXXXXX,    XXXXXXX
+                                  XXXXXXX, XXXXXXX, KC_BTN3,    KC_BTN2, KC_RGUI,
+                                           KC_BTN2, KC_BTN1,    KC_BTN1
   //                            ╰───────────────────────────╯ ╰──────────────────╯
   ),
 };
