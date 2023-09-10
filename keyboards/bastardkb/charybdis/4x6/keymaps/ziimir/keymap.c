@@ -78,8 +78,8 @@ enum custom_keycodes {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case SCRN_SHT:
+            // when keycode SCRN_SHT is pressed; else clause - when keycode is released
             if (record->event.pressed) {
-                // when keycode SCRN_SHT is pressed; else clause - when keycode is released
                 SEND_STRING(SS_LGUI(SS_LSFT("4")));
             }
             break;
@@ -90,18 +90,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
         case CHG_LNG:
             if (record->event.pressed) {
+                // CMD + SPACE - change language
                 SEND_STRING(SS_LGUI(SS_TAP(X_SPACE)));
             }
             break;
         case MAC_MCS:
             if (record->event.pressed) {
                 // CMD + ALT + N - open small arc browser
-                if (get_mods() & MOD_MASK_GUI) {
-                    // No need to register GUI (CMD) because it's already active
-                    SEND_STRING(SS_LALT("n"));
-                } else {
-                    SEND_STRING(SS_LCTL(SS_TAP(X_SPACE)));
-                }
+                SEND_STRING(SS_LGUI(SS_LALT("n")));
             }
             break;
     }
@@ -110,8 +106,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 // KEY OVERRIDES
 const key_override_t delete_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_BSPC, KC_DEL);
-const key_override_t volume_up_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_VOLU, KC_BRIU);
-const key_override_t volume_down_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_VOLD, KC_BRID);
+const key_override_t volume_up_key_override = ko_make_basic(MOD_MASK_CTRL, KC_VOLU, KC_BRIU);
+const key_override_t volume_down_key_override = ko_make_basic(MOD_MASK_CTRL, KC_VOLD, KC_BRID);
 
 const key_override_t **key_overrides = (const key_override_t *[]){
     &delete_key_override,
@@ -174,7 +170,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
        _______, KC_LSFT,  KC_DLR, KC_HASH, KC_EXLM, KC_UNDS,    KC_PMNS, KC_AMPR, KC_ASTR, KC_PERC, KC_RSFT, _______,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       _______, XXXXXXX, KC_LABK, KC_LPRN, KC_LCBR, KC_LBRC,    KC_RBRC, KC_RCBR, KC_RPRN, KC_RABK, XXXXXXX, XXXXXXX,
+       _______, XXXXXXX, KC_RABK, KC_RPRN, KC_RCBR, KC_RBRC,    KC_LBRC, KC_LCBR, KC_LPRN, KC_LABK, XXXXXXX, XXXXXXX,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
                                   XXXXXXX, XXXXXXX, XXXXXXX,    KC_SLSH, KC_BSLS,
                                            XXXXXXX, XXXXXXX,    XXXXXXX
