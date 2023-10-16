@@ -170,7 +170,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
        _______, KC_LSFT,  KC_DLR, KC_HASH, KC_EXLM, KC_UNDS,    KC_PMNS, KC_AMPR, KC_ASTR, KC_PERC, KC_RSFT, _______,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       _______, XXXXXXX, KC_RABK, KC_RPRN, KC_RCBR, KC_RBRC,    KC_LBRC, KC_LCBR, KC_LPRN, KC_LABK, XXXXXXX, XXXXXXX,
+       _______, XXXXXXX, XXXXXXX, XXXXXXX, KC_RPRN, XXXXXXX,    XXXXXXX, KC_LPRN, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
                                   XXXXXXX, XXXXXXX, XXXXXXX,    KC_SLSH, KC_BSLS,
                                            XXXXXXX, XXXXXXX,    XXXXXXX
@@ -213,12 +213,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, S_D_MOD, DPI_MOD,    DPI_MOD, S_D_MOD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       XXXXXXX, KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, XXXXXXX,    XXXXXXX, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, XXXXXXX,
+       KC_BTN3, KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, XXXXXXX,    XXXXXXX, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, KC_BTN3,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
        XXXXXXX, _______, DRGSCRL, SNIPING, CARRETM, XXXXXXX,    XXXXXXX, CARRETM, SNIPING, DRGSCRL, _______, XXXXXXX,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
-                                   KC_ESC, KC_BTN3, KC_BTN2,    KC_BTN2, KC_BTN3,
-                                           XXXXXXX, KC_BTN1,    KC_BTN1
+                                   KC_ESC, KC_BTN2, KC_BTN1,    KC_BTN1, KC_BTN2,
+                                           XXXXXXX, XXXXXXX,    XXXXXXX
   //                            ╰───────────────────────────╯ ╰──────────────────╯
   ),
 };
