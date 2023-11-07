@@ -72,7 +72,9 @@ enum custom_keycodes {
     SCRN_SHT = SAFE_RANGE,
     SCRN_CST,
     CHG_LNG,
-    MAC_MCS
+    MAC_MCS,
+    WORD_LF,
+    WORD_RT,
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -98,6 +100,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 // CMD + ALT + N - open small arc browser
                 SEND_STRING(SS_LGUI(SS_LALT("n")));
+            }
+            break;
+        case WORD_LF:
+            if (record->event.pressed) {
+                // ALT + Left: move one word to the left
+                SEND_STRING(SS_LALT(SS_TAP(X_LEFT)));
+            }
+            break;
+        case WORD_RT:
+            if (record->event.pressed) {
+                // ALT + Right: move one word to the rihgt
+                SEND_STRING(SS_LALT(SS_TAP(X_RIGHT)));
             }
             break;
     }
@@ -157,7 +171,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, KC_KP_1, KC_KP_2, KC_KP_3, KC_PDOT, XXXXXXX,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
-                                  XXXXXXX, _______, XXXXXXX,         FN, KC_KP_0,
+                                  XXXXXXX, _______, XXXXXXX,    KC_BSPC, KC_KP_0,
                                            XXXXXXX, XXXXXXX,    XXXXXXX
   //                            ╰───────────────────────────╯ ╰──────────────────╯
   ),
@@ -181,13 +195,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ╭──────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────╮
        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-      SCRN_SHT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    KC_HOME, KC_PGDN, KC_PGUP,  KC_END, XXXXXXX, XXXXXXX,
+      SCRN_SHT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    KC_HOME, WORD_LF, WORD_RT,  KC_END, XXXXXXX, XXXXXXX,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
       SCRN_CST, KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, XXXXXXX,    KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT, XXXXXXX, XXXXXXX,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
        MAC_MCS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, KC_MUTE, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
-                                  _______, XXXXXXX, XXXXXXX,    KC_VOLD, KC_VOLU,
+                                  _______,      FN, XXXXXXX,    KC_VOLD, KC_VOLU,
                                            XXXXXXX, XXXXXXX,    XXXXXXX
   //                            ╰───────────────────────────╯ ╰──────────────────╯
   ),
@@ -202,7 +216,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX,   KC_F1,   KC_F2,   KC_F3,  KC_F10, XXXXXXX,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
-                                  XXXXXXX, _______, XXXXXXX,    _______, XXXXXXX,
+                                  _______, _______, XXXXXXX,    XXXXXXX, XXXXXXX,
                                            XXXXXXX, XXXXXXX,    XXXXXXX
   //                            ╰───────────────────────────╯ ╰──────────────────╯
   ),
