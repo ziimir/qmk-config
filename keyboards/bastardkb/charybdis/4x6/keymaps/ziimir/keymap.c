@@ -75,6 +75,8 @@ enum custom_keycodes {
     MAC_MCS,
     WORD_LF,
     WORD_RT,
+    LINE_LF,
+    LINE_RT,
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -110,8 +112,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
         case WORD_RT:
             if (record->event.pressed) {
-                // ALT + Right: move one word to the rihgt
+                // ALT + Right: move one word to the right
                 SEND_STRING(SS_LALT(SS_TAP(X_RIGHT)));
+            }
+            break;
+        case LINE_LF:
+            if (record->event.pressed) {
+                // CMD + Left: move one word to the left
+                SEND_STRING(SS_LGUI(SS_TAP(X_LEFT)));
+            }
+            break;
+        case LINE_RT:
+            if (record->event.pressed) {
+                // CMD + Right: move one word to the right
+                SEND_STRING(SS_LGUI(SS_TAP(X_RIGHT)));
             }
             break;
     }
@@ -169,7 +183,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
        XXXXXXX, KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, XXXXXXX,    KC_PMNS, KC_KP_4, KC_KP_5, KC_KP_6, KC_PPLS, XXXXXXX,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, KC_KP_1, KC_KP_2, KC_KP_3, KC_PDOT, XXXXXXX,
+       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    KC_PDOT, KC_KP_1, KC_KP_2, KC_KP_3, XXXXXXX, XXXXXXX,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
                                   XXXXXXX, _______, XXXXXXX,    KC_BSPC, KC_KP_0,
                                            XXXXXXX, XXXXXXX,    XXXXXXX
@@ -180,7 +194,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ╭──────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────╮
        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,   KC_AT, XXXXXXX,    XXXXXXX, KC_CIRC, XXXXXXX, KC_LPRN, KC_RPRN, XXXXXXX,
+       XXXXXXX, KC_LCBR, KC_RCBR, XXXXXXX,   KC_AT, XXXXXXX,    XXXXXXX, KC_CIRC, XXXXXXX, KC_LPRN, KC_RPRN, XXXXXXX,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
        XXXXXXX, KC_PEQL,  KC_DLR, KC_HASH, KC_EXLM, KC_UNDS,    KC_PMNS, KC_AMPR, KC_ASTR, KC_PERC, KC_PLUS, XXXXXXX,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
@@ -195,11 +209,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ╭──────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────╮
        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-      SCRN_SHT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    KC_HOME, WORD_LF, WORD_RT,  KC_END, XXXXXXX, XXXXXXX,
+      SCRN_SHT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    LINE_LF, WORD_LF, WORD_RT, LINE_RT, XXXXXXX, KC_HOME,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
       SCRN_CST, KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, XXXXXXX,    KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT, XXXXXXX, XXXXXXX,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       MAC_MCS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, KC_MUTE, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+       MAC_MCS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, KC_MUTE, XXXXXXX, XXXXXXX, XXXXXXX,  KC_END,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
                                   _______,      FN, XXXXXXX,    KC_VOLD, KC_VOLU,
                                            XXXXXXX, XXXXXXX,    XXXXXXX
