@@ -51,7 +51,7 @@ void triple_grave(tap_dance_state_t *state, void *user_data) {
             SEND_STRING(SS_TAP(X_GRAVE));
             break;
         case 2:
-            SEND_STRING("```");
+            SEND_STRING("``"SS_TAP(X_LEFT));
             break;
         case 3:
             SEND_STRING("```\n\n```"SS_TAP(X_UP));
