@@ -80,12 +80,14 @@ tap_dance_action_t tap_dance_actions[] = {
 enum custom_keycodes {
     SCRN_SHT = SAFE_RANGE,
     SCRN_CST,
-    CHG_LNG,
+    CHG_LNG, // пока не используется
     MAC_MCS,
     WORD_LF,
     WORD_RT,
     LINE_LF,
     LINE_RT,
+    BROW_PR,
+    BROW_NX,
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -135,6 +137,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 // CMD + Right: move one word to the right
                 SEND_STRING(SS_LGUI(SS_TAP(X_RIGHT)));
+            }
+            break;
+        case BROW_PR:
+            if (record->event.pressed) {
+                // CMD + [: go previos in browser history
+                SEND_STRING(SS_LGUI("["));
+            }
+            break;
+        case BROW_NX:
+            if (record->event.pressed) {
+                // CMD + ]: go previos in browser history
+                SEND_STRING(SS_LGUI("]"));
             }
             break;
     }
@@ -211,7 +225,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├─────────────────────────────────────────────┤ ├─────────────────────────────────────────────┤
        KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, XXXXXXX,    KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT, XXXXXXX,
   // ├─────────────────────────────────────────────┤ ├─────────────────────────────────────────────┤
-       CHG_LNG, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    KC_HOME, KC_MUTE, XXXXXXX,  KC_END, XXXXXXX,
+       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    KC_HOME, KC_MUTE, XXXXXXX,  KC_END, XXXXXXX,
   // ╰─────────────────────────────────────────────┤ ├─────────────────────────────────────────────╯
                          _______,      FN, XXXXXXX,    KC_VOLD, KC_VOLU
   //                   ╰───────────────────────────╯ ╰──────────────────╯
@@ -233,9 +247,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ╭─────────────────────────────────────────────╮ ╭─────────────────────────────────────────────╮
        RGB_TOG,  EE_CLR, QK_BOOT, DPI_MOD, S_D_MOD,    S_D_MOD, DPI_MOD, QK_BOOT,  EE_CLR, RGB_TOG,
   // ├─────────────────────────────────────────────┤ ├─────────────────────────────────────────────┤
-       KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, XXXXXXX,    XXXXXXX, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT,
+       KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, KC_BTN3,    KC_BTN3, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT,
   // ├─────────────────────────────────────────────┤ ├─────────────────────────────────────────────┤
-       _______, DRGSCRL, SNIPING, XXXXXXX, KC_BTN3,    KC_BTN3, XXXXXXX, SNIPING, DRGSCRL, _______,
+       _______, DRGSCRL, SNIPING, BROW_NX, BROW_PR,    BROW_PR, BROW_NX, SNIPING, DRGSCRL, _______,
   // ╰─────────────────────────────────────────────┤ ├─────────────────────────────────────────────╯
                           KC_ESC, KC_BTN2, KC_BTN1,    KC_BTN2, KC_BTN1
   //                   ╰───────────────────────────╯ ╰──────────────────╯
